@@ -32,7 +32,6 @@ var server = http2.createServer({
                     max = data.arr[i];
                 }
             }
-            console.log(min, max);
             var results = [
                 {"percentile": 50, "value": 0},
                 {"percentile": 75, "value": 0},
@@ -51,6 +50,7 @@ var server = http2.createServer({
                 for (i = 0; i < results.length; i++) {
                     results[i].value = histogram.percentile(results[i].percentile);
                 }
+                histogram = undefined;
             }
             catch (e) {
                 console.log(e);
