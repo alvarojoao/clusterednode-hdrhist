@@ -51,6 +51,7 @@ var server = http2.createServer({
                     results[i].value = histogram.percentile(results[i].percentile);
                 }
                 histogram = undefined;
+                global.gc();
             }
             catch (e) {
                 console.log(e);
