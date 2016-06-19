@@ -9,6 +9,8 @@
   "author": "Giancarlo Bonansea",
   "license": "ISC",
   "dependencies": {
-    "native-hdr-histogram": "^0.2.1"
+    "http2": "^3.3.4",
+    "native-hdr-histogram": "^0.2.1",
+    "pmx": "^0.6.2"
   }
 }
