@@ -22,6 +22,7 @@ var server = http2.createServer({
         var body = '';
         req.on('data', function(data) { body += data; });
         req.on('end', function() {
+            console.log(body);
             var data = JSON.parse(body), min = 999999, max = 0;
             for (var i = 0; i < data.arr.length; i++) {
                 if (data.arr[i] < min) {
