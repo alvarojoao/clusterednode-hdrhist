@@ -3,8 +3,8 @@
     {
       "name": "clusteredHDRnode",
       "cwd": "/home/pi/clusterednode-hdrhist/current",
-      "script": "hdsrv.js",
-      "watch": "hdsrv.js",
+      "script": "hdrsrv.js",
+      "watch": "hdrsrv.js",
       "instances": 1,
       "max_restarts": 10,
       "exec_mode": "cluster",
@@ -26,7 +26,7 @@
       "repo": "git@github.com:giancarlobonansea/clusterednode-hdrhist.git",
       "path": "~/clusterednode-hdrhist",
       //"post-deploy": "npm install --save && pm2 startOrRestart ecosystem.json --env production",
-      "post-deploy": "npm install --save && pm2 startOrReload ecosystem.json --env production",
+      "post-deploy": "npm install && pm2 startOrReload ecosystem.json --env production",
       "env": {
         "NODE_ENV": "production"
       }
