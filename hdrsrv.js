@@ -41,7 +41,7 @@ var server = http2.createServer({
     else {
         res.end('{}');
     }
-}).listen(8010);
+}).listen(8012);
 process.on('SIGINT', function() {
     server.close();
     setTimeout(function() { process.exit(0); }, 300);
