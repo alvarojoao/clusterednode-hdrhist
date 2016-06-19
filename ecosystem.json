@@ -1,0 +1,35 @@
+{
+  "apps": [
+    {
+      "name": "clusteredHDRnode",
+      "cwd": "/home/pi/clusterednode-hdrhist",
+      "script": "hdsrv.js",
+      "watch": "hdsrv.js",
+      "instances": 1,
+      "max_restarts": 10,
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "pi",
+      "host": [
+        "192.168.69.242"
+      ],
+      "ref": "origin/master",
+      "repo": "git@github.com:giancarlobonansea/clusterednode-hdrhist.git",
+      "path": "~/",
+      //"post-deploy": "npm install --save && pm2 startOrRestart ecosystem.json --env production",
+      "post-deploy": "npm install --save && pm2 startOrReload ecosystem.json --env production",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
