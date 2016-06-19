@@ -55,7 +55,6 @@ var server = http2.createServer({
             catch (e) {
                 console.log(e);
             }
-            ;
             res.end(JSON.stringify(results));
         });
     }
