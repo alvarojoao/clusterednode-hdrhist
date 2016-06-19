@@ -18,6 +18,7 @@ var server = http2.createServer({
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Pragma, Cache-Control, If-Modified-Since, X-ReqId");
     res.setHeader("Content-Type", "application/json");
+    var histogram = undefined;
     if (req.method === 'POST') {
         var body = '';
         req.on('data', function(data) { body += data; });
@@ -43,19 +44,21 @@ var server = http2.createServer({
                 {"percentile": 100, "value": 0}
             ];
             try {
-                var histogram = new hdr(min, max);
+                histogram = undefined;
+                global.gc();
+                histogram = new hdr(min, max);
                 for (i = 0; i < data.arr.length; i++) {
                     histogram.record(data.arr[i]);
                 }
                 for (i = 0; i < results.length; i++) {
                     results[i].value = histogram.percentile(results[i].percentile);
                 }
-                histogram = undefined;
-                global.gc();
             }
             catch (e) {
                 console.log(e);
             }
+            histogram = undefined;
+            global.gc();
             res.end(JSON.stringify(results));
         });
     }
