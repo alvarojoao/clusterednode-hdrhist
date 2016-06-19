@@ -37,7 +37,6 @@ var server = http2.createServer({
                 histogram.record(data.arr[i]);
             }
             var results = [
-                {"percentile": 0, "value": 0},
                 {"percentile": 50, "value": 0},
                 {"percentile": 75, "value": 0},
                 {"percentile": 87.5, "value": 0},
