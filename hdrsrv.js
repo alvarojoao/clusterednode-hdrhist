@@ -32,10 +32,7 @@ var server = http2.createServer({
                     max = data.arr[i];
                 }
             }
-            var histogram = new hdr(min, max);
-            for (i = 0; i < data.arr.length; i++) {
-                histogram.record(data.arr[i]);
-            }
+            console.log(min, max);
             var results = [
                 {"percentile": 50, "value": 0},
                 {"percentile": 75, "value": 0},
@@ -46,9 +43,19 @@ var server = http2.createServer({
                 {"percentile": 99.21875, "value": 0},
                 {"percentile": 100, "value": 0}
             ];
-            for (i = 0; i < results.length; i++) {
-                results[i].value = histogram.percentile(results[i].percentile);
+            try {
+                var histogram = new hdr(min, max);
+                for (i = 0; i < data.arr.length; i++) {
+                    histogram.record(data.arr[i]);
+                }
+                for (i = 0; i < results.length; i++) {
+                    results[i].value = histogram.percentile(results[i].percentile);
+                }
             }
+            catch (e) {
+                console.log(e);
+            }
+            ;
             res.end(JSON.stringify(results));
         });
     }
