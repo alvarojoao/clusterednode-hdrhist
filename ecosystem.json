@@ -9,9 +9,11 @@
       "max_restarts": 10,
       "exec_mode": "cluster",
       "env": {
+        "NODEPORT": 8012,
         "NODE_ENV": "development"
       },
       "env_production": {
+        "NODEPORT": 8012,
         "NODE_ENV": "production"
       }
     }
@@ -25,7 +27,6 @@
       "ref": "origin/master",
       "repo": "git@github.com:giancarlobonansea/clusterednode-hdrhist.git",
       "path": "~/clusterednode-hdrhist",
-      //"post-deploy": "npm install --save && pm2 startOrRestart ecosystem.json --env production",
       "post-deploy": "npm install && pm2 startOrReload ecosystem.json --env production",
       "env": {
         "NODE_ENV": "production"

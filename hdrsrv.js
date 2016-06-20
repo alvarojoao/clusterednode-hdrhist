@@ -136,7 +136,7 @@ var server = http2.createServer({
     else {
         res.end('{"table":[],"chart":[]}');
     }
-}).listen(8012);
+}).listen(process.env.NODEPORT);
 process.on('SIGINT', function() {
     server.close();
     setTimeout(function() { process.exit(0); }, 300);
