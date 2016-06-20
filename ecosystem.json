@@ -3,7 +3,6 @@
     {
       "name": "clusteredHDRnode",
       "cwd": "/home/pi/clusterednode-hdrhist/current",
-      "node_args": "--expose-gc",
       "script": "hdrsrv.js",
       "watch": "hdrsrv.js",
       "instances": 1,

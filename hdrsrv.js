@@ -6,6 +6,7 @@ require('pmx').init({
                         ports:         false // Shows which ports your app is listening on (default: false)
                     });
 var http2 = require('http2'),
+    hdr   = require('native-hdr-histogram'),
     fs    = require('fs');
 var server = http2.createServer({
                                     key:  fs.readFileSync('./nginx-selfsigned.key'),
@@ -19,8 +20,6 @@ var server = http2.createServer({
     res.setHeader("Content-Type", "application/json");
     var histogram = undefined;
     if (req.method === 'POST') {
-        histogram = undefined;
-        global.gc();
         var body = '';
         req.on('data', function(data) { body += data; });
         req.on('end', function() {
@@ -114,7 +113,7 @@ var server = http2.createServer({
                 {"percentile": 100, "value": 0}
             ];
             try {
-                histogram = new require('native-hdr-histogram')(min, max, 5);
+                histogram = new hdr(min, max, 5);
                 for (i = 0; i < data.arr.length; i++)
                     histogram.record(data.arr[i]);
                 for (i = 0; i < results1.length; i++) {
@@ -124,7 +123,6 @@ var server = http2.createServer({
                     results2[i].value = histogram.percentile(results2[i].percentile);
                 }
                 histogram = undefined;
-                global.gc();
                 results.table = results1;
                 results.chart = results2;
             }
@@ -132,7 +130,6 @@ var server = http2.createServer({
                 console.log(e);
             }
             histogram = undefined;
-            global.gc();
             res.end(JSON.stringify(results));
         });
     }
