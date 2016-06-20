@@ -6,8 +6,7 @@ require('pmx').init({
                         ports:         false // Shows which ports your app is listening on (default: false)
                     });
 var http2 = require('http2'),
-    fs    = require('fs'),
-    hdr   = require('native-hdr-histogram');
+    fs    = require('fs');
 var server = http2.createServer({
                                     key:  fs.readFileSync('./nginx-selfsigned.key'),
                                     cert: fs.readFileSync('./nginx-selfsigned.crt')
@@ -115,7 +114,7 @@ var server = http2.createServer({
                 {"percentile": 100, "value": 0}
             ];
             try {
-                histogram = new hdr(min, max);
+                histogram = new require('native-hdr-histogram')(min, max, 5);
                 for (i = 0; i < data.arr.length; i++)
                     histogram.record(data.arr[i]);
                 for (i = 0; i < results1.length; i++) {
