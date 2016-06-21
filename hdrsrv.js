@@ -5,9 +5,10 @@ require('pmx').init({
                         network:       true, // Network monitoring at the application level
                         ports:         false // Shows which ports your app is listening on (default: false)
                     });
-var http2 = require('http2'),
-    hdr   = require('native-hdr-histogram'),
-    fs    = require('fs');
+var http2     = require('http2'),
+    hdr       = require('native-hdr-histogram'),
+    fs        = require('fs'),
+    BigNumber = require('bignumber.js');
 var server = http2.createServer({
                                     key:  fs.readFileSync('./nginx-selfsigned.key'),
                                     cert: fs.readFileSync('./nginx-selfsigned.crt')
@@ -44,17 +45,24 @@ var server = http2.createServer({
                 {"percentile": 100, "value": 0}
             ];
             var results2 = [];
+            var ninety = new BigNumber("90");
+            var three9 = new BigNumber("99.9");
+            var four9 = new BigNumber("99.99");
+            var five9 = new BigNumber("99.999");
+            var decIncr = new BigNumber("0.1");
+            var centIncr = new BigNumber("0.01");
+            var miliIncr = new BigNumber("0.001");
             for (i = 1; i < 90; i++) {
                 results2.push({"percentile": i, "value": 0});
             }
-            for (i = 90; i < 99.9; i += 0.1) {
-                results2.push({"percentile": i, "value": 0});
+            for (var j = ninety; j.lt(three9); j.add(decIncr)) {
+                results2.push({"percentile": j.toNumber(), "value": 0});
             }
-            for (i = 99.9; i < 99.99; i += 0.01) {
-                results2.push({"percentile": i, "value": 0});
+            for (j = three9; j.lt(four9); j.add(centIncr)) {
+                results2.push({"percentile": j.toNumber(), "value": 0});
             }
-            for (i = 99.99; i < 99.999; i += 0.001) {
-                results2.push({"percentile": i, "value": 0});
+            for (j = four9; j.lt(five9); j.add(miliIncr)) {
+                results2.push({"percentile": j.toNumber(), "value": 0});
             }
             results2.push({"percentile": 100, "value": 0});
             try {
