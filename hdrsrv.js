@@ -45,26 +45,23 @@ var server = http2.createServer({
                 {"percentile": 100, "value": 0}
             ];
             var results2 = [];
-            var ninety = new BigNumber("90");
+            var seventyfive = new BigNumber("75");
             var three9 = new BigNumber("99.9");
             var four9 = new BigNumber("99.99");
             var five9 = new BigNumber("99.999");
             var decIncr = new BigNumber("0.1");
             var centIncr = new BigNumber("0.01");
             var miliIncr = new BigNumber("0.001");
-            for (i = 1; i < 90; i++) {
+            for (i = 1; i < 75; i++) {
                 results2.push({"percentile": i, "value": 0});
             }
-            for (var j = ninety; j.lt(three9); j = j.plus(decIncr)) {
-                console.log(j.toNumber());
+            for (var j = seventyfive; j.lt(three9); j = j.plus(decIncr)) {
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
             for (j = three9; j.lt(four9); j = j.plus(centIncr)) {
-                console.log(j.toNumber());
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
-            for (j = four9; j.lt(five9); j = j.plus(miliIncr)) {
-                console.log(j.toNumber());
+            for (j = four9; j.lte(five9); j = j.plus(miliIncr)) {
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
             results2.push({"percentile": 100, "value": 0});
