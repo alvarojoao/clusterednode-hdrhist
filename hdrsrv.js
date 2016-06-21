@@ -55,15 +55,15 @@ var server = http2.createServer({
             for (i = 1; i < 90; i++) {
                 results2.push({"percentile": i, "value": 0});
             }
-            for (var j = ninety; j.lt(three9); j.add(decIncr)) {
+            for (var j = ninety; j.lt(three9); j = j.plus(decIncr)) {
                 console.log(j.toNumber());
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
-            for (j = three9; j.lt(four9); j.add(centIncr)) {
+            for (j = three9; j.lt(four9); j = j.plus(centIncr)) {
                 console.log(j.toNumber());
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
-            for (j = four9; j.lt(five9); j.add(miliIncr)) {
+            for (j = four9; j.lt(five9); j = j.plus(miliIncr)) {
                 console.log(j.toNumber());
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
