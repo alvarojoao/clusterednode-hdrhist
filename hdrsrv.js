@@ -66,7 +66,7 @@ var server = http2.createServer({
             }
             results2.push({"percentile": 100, "value": 0});
             try {
-                histogram = new hdr(min, max, 3);
+                histogram = new hdr(min, max, 5);
                 for (i = 0; i < data.arr.length; i++)
                     histogram.record(data.arr[i]);
                 for (i = 0; i < results1.length; i++) {
