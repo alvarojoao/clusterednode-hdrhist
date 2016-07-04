@@ -5,11 +5,11 @@ require('pmx').init({
                         network:       true, // Network monitoring at the application level
                         ports:         false // Shows which ports your app is listening on (default: false)
                     });
-var http2     = require('http2'),
+var https     = require('https'),
     hdr       = require('native-hdr-histogram'),
     fs        = require('fs'),
     BigNumber = require('bignumber.js');
-var server = http2.createServer({
+var server = https.createServer({
                                     key:  fs.readFileSync('./nginx-selfsigned.key'),
                                     cert: fs.readFileSync('./nginx-selfsigned.crt')
                                 }, function(req, res) {

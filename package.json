@@ -1,6 +1,6 @@
 {
   "name": "clusteredHDRnode",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "HDR Histogram Node.js implementation via webservice POST",
   "main": "hdrsrv.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "bignumber.js": "^2.3.0",
-    "http2": "^3.3.4",
     "native-hdr-histogram": "^0.2.1",
     "pmx": "^0.6.2"
   }
