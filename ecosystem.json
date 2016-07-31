@@ -23,7 +23,8 @@
     "production": {
       "user": "pi",
       "host": [
-        "192.168.69.242"
+        "192.168.69.235",
+        "192.168.69.234"
       ],
       "ref": "origin/master",
       "repo": "git@github.com:giancarlobonansea/clusterednode-hdrhist.git",
