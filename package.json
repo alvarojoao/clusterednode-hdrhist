@@ -1,6 +1,6 @@
 {
   "name": "clusteredHDRnode",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "HDR Histogram Node.js implementation via webservice POST",
   "main": "hdrsrv.js",
   "scripts": {
