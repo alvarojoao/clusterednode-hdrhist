@@ -1,7 +1,7 @@
 {
   "name": "clusteredHDRnode",
   "version": "1.0.8",
-  "description": "HDR Histogram Node.js implementation via webservice POST",
+  "description": "HDR Histogram Node.js implementation via POST webservice",
   "main": "hdrsrv.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
