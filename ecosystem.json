@@ -28,7 +28,7 @@
       ],
       "ref": "origin/master",
       "repo": "git@github.com:giancarlobonansea/clusterednode-hdrhist.git",
-      "path": "/hone/pi/clusterednode-hdrhist",
+      "path": "/home/pi/clusterednode-hdrhist",
       "post-deploy": "npm update && chmod 755 ugly.sh && ./ugly.sh && pm2 startOrReload ecosystem.json --env production",
       "env": {
         "NODE_ENV": "production"
