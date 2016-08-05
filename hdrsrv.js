@@ -13,13 +13,10 @@ var server = https.createServer({
                                     key:  fs.readFileSync('./nginx-selfsigned.key'),
                                     cert: fs.readFileSync('./nginx-selfsigned.crt')
                                 }, function(req, res) {
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT');
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Pragma, Cache-Control, If-Modified-Since, X-ReqId");
     res.setHeader("Content-Type", "application/json");
-    var histogram = undefined;
+    var histogram;
     if (req.method === 'POST') {
         var body = '';
         req.on('data', function(data) { body += data; });
@@ -65,23 +62,19 @@ var server = https.createServer({
                 results2.push({"percentile": j.toNumber(), "value": 0});
             }
             results2.push({"percentile": 100, "value": 0});
-            try {
-                histogram = new hdr(min, max, 5);
-                for (i = 0; i < data.arr.length; i++)
-                    histogram.record(data.arr[i]);
-                for (i = 0; i < results1.length; i++) {
-                    results1[i].value = histogram.percentile(results1[i].percentile);
-                }
-                for (i = 0; i < results2.length; i++) {
-                    results2[i].value = histogram.percentile(results2[i].percentile);
-                }
-                histogram = undefined;
-                results.table = results1;
-                results.chart = results2;
+            histogram = new hdr(min, max, 5);
+            for (i = 0; i < data.arr.length; i++) {
+                histogram.record(data.arr[i]);
             }
-            catch (e) {
-                console.log(e);
+            for (i = 0; i < results1.length; i++) {
+                results1[i].value = histogram.percentile(results1[i].percentile);
             }
+            for (i = 0; i < results2.length; i++) {
+                results2[i].value = histogram.percentile(results2[i].percentile);
+            }
+            histogram = undefined;
+            results.table = results1;
+            results.chart = results2;
             histogram = undefined;
             res.end(JSON.stringify(results));
         });
